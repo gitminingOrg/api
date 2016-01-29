@@ -17,11 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RepositoryController {
 	@Autowired
 	private RepositoryInfoService repositoryInfoService;
-	@RequestMapping(value = "/hello")
-	public String getStarted(HttpServletRequest request,
-			HttpServletResponse response){	
-		return "With Best Wishes"+repositoryInfoService.getString();
-	}
+	
 	@RequestMapping({"","/"})
 	public List<Document> getAllRepos(HttpServletRequest request,
 			HttpServletResponse response){

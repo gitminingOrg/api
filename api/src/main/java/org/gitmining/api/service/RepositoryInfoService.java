@@ -11,9 +11,6 @@ import org.springframework.stereotype.Component;
 public class RepositoryInfoService {
 	@Autowired
 	RepositoryDao repositoryDao;
-	public String getString(){
-		return "Yes PPG";
-	}
 	
 	public List<Document> getAllRepos(){
 		return repositoryDao.getAllRepos();
