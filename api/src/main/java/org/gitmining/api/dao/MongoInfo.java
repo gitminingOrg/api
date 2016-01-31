@@ -6,7 +6,8 @@ public class MongoInfo {
 	public static final String COMMIT_COLLLECTION ="";
 	public static final String PULL_COLLECTION ="";
 	public static final String LANGUAGE_COLLECTION ="languages";
-	
+	public static final String CONTRIBUTOR_COLLECTION ="contributors";
+	public static final String COLLABORATOR_COLLECTION ="assignees";
 	
 	public static String getMongoServerIp(){
 		String remoteIP = "121.41.118.191";

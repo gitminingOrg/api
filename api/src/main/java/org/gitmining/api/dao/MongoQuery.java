@@ -14,7 +14,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 @Component
 public class MongoQuery {
-	
 	public List<Document> search(String db,String collection, Map<String,Object> filters){
 		Document document = new Document();
 		if(filters != null){
@@ -27,6 +26,24 @@ public class MongoQuery {
 		MongoDatabase database = mongoClient.getDatabase(db);
 		FindIterable<Document> iterable = database
 				.getCollection(collection).find(document);
+		List<Document> documents = new ArrayList<Document>();
+		iterable.into(documents);
+		mongoClient.close();
+		return documents;
+	}
+	
+	public List<Document> searchLimit(String db,String collection, Map<String,Object> filters, int skip, int limit){
+		Document document = new Document();
+		if(filters != null){
+			Set<String> keSet = filters.keySet();
+			for (String string : keSet) {
+				document.append(string, filters.get(string));
+			}
+		}
+		MongoClient mongoClient = new MongoClient(MongoInfo.getMongoServerIp(), 27017);
+		MongoDatabase database = mongoClient.getDatabase(db);
+		FindIterable<Document> iterable = database
+				.getCollection(collection).find(document).skip(skip).limit(limit);
 		List<Document> documents = new ArrayList<Document>();
 		iterable.into(documents);
 		mongoClient.close();

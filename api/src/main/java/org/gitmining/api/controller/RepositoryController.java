@@ -22,12 +22,47 @@ public class RepositoryController {
 	@RequestMapping({"","/"})
 	public List<Document> getAllRepos(HttpServletRequest request,
 			HttpServletResponse response){
-		return repositoryInfoService.getAllRepos();
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return repositoryInfoService.getRepos(page);
+	}
+	
+	@RequestMapping({"/names"})
+	public List<String> getAllRepoNames(HttpServletRequest request,
+			HttpServletResponse response){
+		return repositoryInfoService.getAllRepoNames();
 	}
 	
 	@RequestMapping(value = "/{owner}/{reponame}")
 	public Document getRepo(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
 		return repositoryInfoService.getRepoInfo(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/{item}")
+	public String getRepoItem(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("item") String item){
+		return repositoryInfoService.getRepoItem(owner+"/"+reponame,item);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/contributors")
+	public List<Document> getRepoContributors(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoContributors(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/contributors/name")
+	public List<Document> getRepoContributorsName(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoContributors(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/collaborators")
+	public List<Document> getRepoCollaborators(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoCollaborators(owner+"/"+reponame);
 	}
 }
