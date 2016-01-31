@@ -42,7 +42,19 @@ public class RepositoryController {
 		return repositoryInfoService.getRepoInfo(owner+"/"+reponame);
 	}
 	
-	@RequestMapping(value = "/{owner}/{reponame}/{item}")
+	@RequestMapping(value = "/{owner}/{reponame}/commits")
+	public List<Document> getRepoCommit(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		String fullname = owner+"/"+reponame;
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return repositoryInfoService.getRepoCommits(fullname, page);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/item/{item}")
 	public String getRepoItem(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("item") String item){
 		return repositoryInfoService.getRepoItem(owner+"/"+reponame,item);

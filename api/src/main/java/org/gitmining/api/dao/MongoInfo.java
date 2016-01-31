@@ -3,8 +3,9 @@ package org.gitmining.api.dao;
 public class MongoInfo {
 	public static final String DB ="ghcrawlerV3";
 	public static final String REPO_COLLECTION ="repository";
-	public static final String COMMIT_COLLLECTION ="";
-	public static final String PULL_COLLECTION ="";
+	public static final String COMMIT_COLLLECTION ="commits";
+	public static final String PULL_COLLECTION ="pulls";
+	public static final String USER_COLLECTION ="user";
 	public static final String LANGUAGE_COLLECTION ="languages";
 	public static final String CONTRIBUTOR_COLLECTION ="contributors";
 	public static final String COLLABORATOR_COLLECTION ="assignees";
