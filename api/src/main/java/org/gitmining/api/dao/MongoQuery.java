@@ -63,6 +63,7 @@ public class MongoQuery {
 		FindIterable<Document> iterable = database
 				.getCollection(collection).find(document).limit(1);
 		Document document2 = iterable.first();
+		document2.remove("_id");
 		mongoClient.close();
 		return document2;
 	}

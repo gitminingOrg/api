@@ -54,6 +54,12 @@ public class RepositoryController {
 		return repositoryInfoService.getRepoCommits(fullname, page);
 	}
 	
+	@RequestMapping(value = "/{owner}/{reponame}/languages")
+	public Document getRepoLanguages(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoLanguage(owner+"/"+reponame);
+	}
+	
 	@RequestMapping(value = "/{owner}/{reponame}/item/{item}")
 	public String getRepoItem(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("item") String item){
@@ -66,15 +72,21 @@ public class RepositoryController {
 		return repositoryInfoService.getRepoContributors(owner+"/"+reponame);
 	}
 	
-	@RequestMapping(value = "/{owner}/{reponame}/contributors/name")
-	public List<Document> getRepoContributorsName(HttpServletRequest request,
+	@RequestMapping(value = "/{owner}/{reponame}/contributors/login")
+	public List<String> getRepoContributorsName(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
-		return repositoryInfoService.getRepoContributors(owner+"/"+reponame);
+		return repositoryInfoService.getContributorNames(owner+"/"+reponame);
 	}
 	
 	@RequestMapping(value = "/{owner}/{reponame}/collaborators")
 	public List<Document> getRepoCollaborators(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
 		return repositoryInfoService.getRepoCollaborators(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/collaborators/login")
+	public List<String> getRepoCollaboratorsName(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getCollaboratorNames(owner+"/"+reponame);
 	}
 }

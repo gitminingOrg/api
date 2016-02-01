@@ -44,12 +44,34 @@ public class RepositoryInfoService {
 		return repositoryDao.getRepoCommits(reponame, skip, limit);
 	}
 	
+	public Document getRepoLanguage(String reponame){
+		return repositoryDao.getRepoLanguages(reponame);
+	}
+	
 	public List<Document> getRepoCollaborators(String repoName){
 		return repositoryDao.getRepoCollaborators(repoName);
 	}
 	
 	public List<Document> getRepoContributors(String repoName){
 		return repositoryDao.getRepoContributors(repoName);
+	}
+	
+	public List<String> getContributorNames(String repoName){
+		List<Document> documents = repositoryDao.getRepoContributors(repoName);
+		List<String> names = new ArrayList<String>();
+		for (Document document : documents) {
+			names.add(document.getString("login"));
+		}
+		return names;
+	}
+	
+	public List<String> getCollaboratorNames(String repoName){
+		List<Document> documents = repositoryDao.getRepoCollaborators(repoName);
+		List<String> names = new ArrayList<String>();
+		for (Document document : documents) {
+			names.add(document.getString("login"));
+		}
+		return names;
 	}
 	
 	public String getRepoItem(String repoName, String item){
