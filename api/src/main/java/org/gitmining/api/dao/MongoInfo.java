@@ -11,7 +11,7 @@ public class MongoInfo {
 	public static final String CONTRIBUTOR_COLLECTION ="contributors";
 	public static final String COLLABORATOR_COLLECTION ="assignees";
 	public static final String BRANCH_COLLECTION ="branches";
-	public static final String FORK_COLLECTION ="branches";
+	public static final String FORK_COLLECTION ="forks";
 	public static final String STAR_COLLECTION ="stargazers";
 	public static final String SUBSCRIBER_COLLECTION ="subscribers";
 	public static final String COMMENT_COLLECTION ="comment";

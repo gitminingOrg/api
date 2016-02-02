@@ -127,7 +127,7 @@ public class RepositoryController {
 	}
 	
 	@RequestMapping(value = "/fork/{owner}/{reponame}")
-	public Document getRepoBranch(HttpServletRequest request,
+	public Document getRepoFork(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
 		return repositoryInfoService.getRepoFork(owner+"/"+reponame);
 	}
