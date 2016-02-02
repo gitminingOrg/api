@@ -77,4 +77,64 @@ public class RepositoryController {
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
 		return repositoryInfoService.getCollaboratorNames(owner+"/"+reponame);
 	}
+	
+	
+	@RequestMapping(value = "/{owner}/{reponame}/branches")
+	public List<Document> getRepoBranches(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoBranches(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/branches/names")
+	public List<String> getRepoBranchNames(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoBranchNames(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/branch/{name}")
+	public Document getRepoBranch(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,  @PathVariable("name") String name){
+		return repositoryInfoService.getRepoBranch(owner+"/"+reponame, name);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/branch/{name}/item/{item}")
+	public String getRepoBranchItem(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,  @PathVariable("name") String name, @PathVariable("item") String item){
+		return repositoryInfoService.getRepoBranchItem(owner+"/"+reponame, name,item);
+	}
+	
+	
+	@RequestMapping(value = "/{owner}/{reponame}/forks")
+	public List<Document> getRepoForks(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return repositoryInfoService.getRepoForks(owner+"/"+reponame,page);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/forks/names")
+	public List<String> getRepoForkNames(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return repositoryInfoService.getRepoForkNames(owner+"/"+reponame,page);
+	}
+	
+	@RequestMapping(value = "/fork/{owner}/{reponame}")
+	public Document getRepoBranch(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		return repositoryInfoService.getRepoFork(owner+"/"+reponame);
+	}
+	
+	@RequestMapping(value = "/fork/{owner}/{reponame}/item/{item}")
+	public String getRepoForkItem(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,  @PathVariable("name") String name, @PathVariable("item") String item){
+		return repositoryInfoService.getRepoForkItem(owner+"/"+reponame,item);
+	}
 }

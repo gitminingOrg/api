@@ -28,6 +28,31 @@ public class RepositoryDao {
 				filter);
 	}
 	
+	public List<Document> getRepoBranches(String reponame) {
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("fn", reponame);
+		return mongoQuery.search(MongoInfo.DB, MongoInfo.BRANCH_COLLECTION,filter);
+	}
+	
+	public Document getRepoBranch(String reponame,String name) {
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("fn", reponame);
+		filter.put("name", name);
+		return mongoQuery.searchOne(MongoInfo.DB, MongoInfo.BRANCH_COLLECTION,filter);
+	}
+	
+	public List<Document> getRepoForks(String reponame,int skip, int limit) {
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("fn", reponame);
+		return mongoQuery.searchLimit(MongoInfo.DB, MongoInfo.FORK_COLLECTION,filter,skip,limit);
+	}
+	
+	public Document getRepoFork(String forkname) {
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("full_name", forkname);
+		return mongoQuery.searchOne(MongoInfo.DB, MongoInfo.FORK_COLLECTION,filter);
+	}
+	
 	public List<Document> getRepoContributors(String reponame){
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("fn", reponame);		

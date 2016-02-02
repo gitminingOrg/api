@@ -13,6 +13,20 @@ public class CommitIssuePullDao {
 	@Autowired
 	MongoQuery mongoQuery;
 	
+	public List<Document> getRepoComments(String reponame,String commitsha, int skip, int limit){
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("fn", reponame);	
+		filter.put("commit_id", commitsha);	
+		return mongoQuery.searchLimit(MongoInfo.DB, MongoInfo.COMMENT_COLLECTION, filter,skip,limit);
+	}
+	
+	public List<Document> getRepoIssueComments(String reponame,int issuenum, int skip, int limit){
+		Map<String, Object> filter = new HashMap<String, Object>();
+		filter.put("fn", reponame);	
+		filter.put("id", issuenum);	
+		return mongoQuery.searchLimit(MongoInfo.DB, MongoInfo.ISSUE_COMMENT_COLLECTION, filter,skip,limit);
+	}
+	
 	public List<Document> getRepoCommits(String reponame,int skip, int limit){
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("fn", reponame);		

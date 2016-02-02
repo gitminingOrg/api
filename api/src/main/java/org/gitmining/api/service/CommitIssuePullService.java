@@ -116,4 +116,16 @@ public class CommitIssuePullService {
 		
 		return result;
 	}
+	
+	public List<Document> getCommitComments(String reponame, String sha, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		return commitIssuePullDao.getRepoComments(reponame, sha, skip, limit);
+	}
+	
+	public List<Document> getIssueComments(String reponame, int issuenum, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		return commitIssuePullDao.getRepoIssueComments(reponame, issuenum, skip, limit);
+	}
 }
