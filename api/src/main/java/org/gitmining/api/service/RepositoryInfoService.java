@@ -3,6 +3,8 @@ package org.gitmining.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.spy.memcached.MemcachedClient;
+
 import org.bson.Document;
 import org.gitmining.api.dao.PageInfo;
 import org.gitmining.api.dao.RepositoryDao;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Component;
 public class RepositoryInfoService {
 	@Autowired
 	RepositoryDao repositoryDao;
+	@Autowired
+	MemcachedClient memcachedClient;
 	
 	@Deprecated
 	public List<Document> getAllRepos(){
@@ -20,10 +24,16 @@ public class RepositoryInfoService {
 	}
 	
 	public List<String> getAllRepoNames(){
-		List<String> names = new ArrayList<String>();
-		List<Document> repos = repositoryDao.getAllRepos();
-		for (Document document : repos) {
-			names.add(document.getString("full_name"));
+		List<String> names = (List<String>)memcachedClient.get("reponames");
+		if(names != null){
+			return names;
+		}else{
+			names = new ArrayList<String>();
+			List<Document> repos = repositoryDao.getAllRepos();
+			for (Document document : repos) {
+				names.add(document.getString("full_name"));
+			}
+			memcachedClient.add("reponames", 0, names);
 		}
 		return names;
 	}

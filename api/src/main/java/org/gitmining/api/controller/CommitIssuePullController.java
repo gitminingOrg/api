@@ -30,6 +30,18 @@ public class CommitIssuePullController {
 		return commitIssuePullService.getRepoPulls(fullname, page);
 	}	
 	
+	@RequestMapping(value = "/{owner}/{reponame}/pulls/numbers")
+	public List<Integer> getRepoPullNumbers(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		String fullname = owner+"/"+reponame;
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return commitIssuePullService.getRepoPullNumbers(fullname, page);
+	}
+	
 	@RequestMapping(value = "/{owner}/{reponame}/pull/{number}")
 	public Document getRepoPull(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("number") int number){
@@ -56,6 +68,18 @@ public class CommitIssuePullController {
 			page = Integer.parseInt(pageString);
 		}
 		return commitIssuePullService.getRepoIssues(fullname, page);
+	}	
+	
+	@RequestMapping(value = "/{owner}/{reponame}/issues/numbers")
+	public List<Integer> getRepoIssueNumbers(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		String fullname = owner+"/"+reponame;
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return commitIssuePullService.getRepoIssueNumbers(fullname, page);
 	}	
 	
 	@RequestMapping(value = "/{owner}/{reponame}/issue/{number}")
@@ -96,6 +120,18 @@ public class CommitIssuePullController {
 			page = Integer.parseInt(pageString);
 		}
 		return commitIssuePullService.getRepoCommits(fullname, page);
+	}
+	
+	@RequestMapping(value = "/{owner}/{reponame}/commits/shas")
+	public List<String> getRepoCommitShas(HttpServletRequest request,
+			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		String fullname = owner+"/"+reponame;
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return commitIssuePullService.getRepoCommitsSha(fullname, page);
 	}
 	
 	@RequestMapping(value = "/{owner}/{reponame}/commit/{sha}/comments")

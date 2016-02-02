@@ -1,5 +1,6 @@
 package org.gitmining.api.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
@@ -18,6 +19,18 @@ public class CommitIssuePullService {
 		int limit = PageInfo.PAGE_COUNT;
 		return commitIssuePullDao.getRepoCommits(reponame, skip, limit);
 	}
+	
+	public List<String> getRepoCommitsSha(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		List<Document> documents = commitIssuePullDao.getRepoCommits(reponame, skip, limit);
+		List<String> shas = new ArrayList<String>();
+		for (Document document : documents) {
+			shas.add(document.getString("sha"));
+		}
+		return shas;	
+	}
+	
 	public Document getRepoCommit(String reponame, String sha){
 		return commitIssuePullDao.getRepoCommit(reponame, sha);
 	}
@@ -59,6 +72,17 @@ public class CommitIssuePullService {
 		return commitIssuePullDao.getRepoPulls(reponame, skip, limit);
 	}
 	
+	public List<Integer> getRepoPullNumbers(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		List<Document> documents =  commitIssuePullDao.getRepoPulls(reponame, skip, limit);
+		List<Integer> numbers = new ArrayList<Integer>();
+		for (Document document : documents) {
+			numbers.add(document.getInteger("number"));
+		}
+		return numbers;
+	}
+	
 	public Document getRepoPull(String reponame, int number){
 		return commitIssuePullDao.getRepoPull(reponame, number);
 	}
@@ -89,6 +113,17 @@ public class CommitIssuePullService {
 		int skip = (page - 1) * PageInfo.PAGE_COUNT;
 		int limit = PageInfo.PAGE_COUNT;
 		return commitIssuePullDao.getRepoIssues(reponame, skip, limit);
+	}
+	
+	public List<Integer> getRepoIssueNumbers(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		List<Document> documents =  commitIssuePullDao.getRepoIssues(reponame, skip, limit);
+		List<Integer> numbers = new ArrayList<Integer>();
+		for (Document document : documents) {
+			numbers.add(document.getInteger("number"));
+		}
+		return numbers;
 	}
 	
 	public Document getRepoIssue(String reponame, int number){

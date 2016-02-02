@@ -1,6 +1,10 @@
 package org.gitmining.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bson.Document;
+import org.gitmining.api.dao.PageInfo;
 import org.gitmining.api.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +25,39 @@ public class UserInfoService {
 		}else{
 			return document.get(item).toString();
 		}
+	}
+	
+	public List<Document> getRepoStargazers(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		return userDao.searchStargazers(reponame, skip, limit);
+	}
+	
+	public List<Document> getRepoSubscribers(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		return userDao.searchSubscribers(reponame, skip, limit);
+	}
+	
+	public List<String> getRepoStargazerNames(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		List<Document> documents =  userDao.searchStargazers(reponame, skip, limit);
+		List<String> names = new ArrayList<String>();
+		for (Document document : documents) {
+			names.add(document.getString("login"));
+		}
+		return names;
+	}
+	
+	public List<String> getRepoSubscriberNames(String reponame, int page){
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		List<Document> documents =  userDao.searchSubscribers(reponame, skip, limit);
+		List<String> names = new ArrayList<String>();
+		for (Document document : documents) {
+			names.add(document.getString("login"));
+		}
+		return names;
 	}
 }
