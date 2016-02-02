@@ -38,12 +38,6 @@ public class RepositoryInfoService {
 		return repositoryDao.getPageRepos(skip, limit);
 	}
 	
-	public List<Document> getRepoCommits(String reponame, int page){
-		int skip = (page - 1) * PageInfo.PAGE_COUNT;
-		int limit = PageInfo.PAGE_COUNT;
-		return repositoryDao.getRepoCommits(reponame, skip, limit);
-	}
-	
 	public Document getRepoLanguage(String reponame){
 		return repositoryDao.getRepoLanguages(reponame);
 	}

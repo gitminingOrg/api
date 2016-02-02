@@ -39,14 +39,7 @@ public class RepositoryDao {
 		filter.put("fn", reponame);		
 		return mongoQuery.search(MongoInfo.DB, MongoInfo.COLLABORATOR_COLLECTION, filter);
 	}
-	
-	public List<Document> getRepoCommits(String reponame,int skip, int limit){
-		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("fn", reponame);		
-		return mongoQuery.searchLimit(MongoInfo.DB, MongoInfo.COMMIT_COLLLECTION, filter,skip,limit);
-	}
-	
-	
+		
 	public Document getRepoLanguages(String reponame){
 		Map<String, Object> filter = new HashMap<String, Object>();
 		filter.put("fn", reponame);
