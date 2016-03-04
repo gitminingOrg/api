@@ -21,6 +21,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/pulls")
 	public List<Document> getRepoPull(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -33,6 +39,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/pulls/numbers")
 	public List<Integer> getRepoPullNumbers(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -45,6 +57,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/pull/{number}")
 	public Document getRepoPull(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("number") int number){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		
 		return commitIssuePullService.getRepoPull(fullname, number);
@@ -53,6 +71,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/pull/{number}/item/{item}")
 	public String getRepoPullItem(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("number") int number,@PathVariable(value="item") String item){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		
 		return commitIssuePullService.getRepoPullItem(fullname, number,item);
@@ -61,6 +85,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/issues")
 	public List<Document> getRepoIssues(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -73,6 +103,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/issues/numbers")
 	public List<Integer> getRepoIssueNumbers(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -85,6 +121,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/issue/{number}")
 	public Document getRepoIssue(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("number") int number){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		
 		return commitIssuePullService.getRepoIssue(fullname, number);
@@ -93,6 +135,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/issue/{number}/item/{item}")
 	public String getRepoIssueItem(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("number") int number,@PathVariable(value="item") String item){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		
 		return commitIssuePullService.getRepoIssueItem(fullname, number,item);
@@ -101,6 +149,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/issue/{number}/comments")
 	public List<Document> getRepoIssueComments(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("number") int number){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -113,6 +167,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/commits")
 	public List<Document> getRepoCommit(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -125,6 +185,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/commits/shas")
 	public List<String> getRepoCommitShas(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -137,6 +203,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/commit/{sha}/comments")
 	public List<Document> getRepoCommitComments(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("sha") String sha){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -149,6 +221,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/commit/{sha}")
 	public Document getRepoCommit(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("sha") String sha){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		return commitIssuePullService.getRepoCommit(fullname, sha);
 	}
@@ -156,6 +234,12 @@ public class CommitIssuePullController {
 	@RequestMapping(value = "/{owner}/{reponame}/commit/{sha}/item/{item}")
 	public String getRepoCommitItem(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable("reponame") String reponame, @PathVariable("owner") String owner,@PathVariable("sha") String sha,@PathVariable(value="item") String item){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;		
 		return commitIssuePullService.getRepoCommitItem(fullname, sha, item);
 	}

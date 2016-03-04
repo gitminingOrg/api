@@ -32,6 +32,12 @@ public class UserController {
 	@RequestMapping(value="/{owner}/{reponame}/stargazers")
 	public List<Document> getRepoStars(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value="owner") String owner, @PathVariable(value="reponame")String reponame){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -44,6 +50,12 @@ public class UserController {
 	@RequestMapping(value="/{owner}/{reponame}/subscribers")
 	public List<Document> getRepoSubs(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value="owner") String owner, @PathVariable(value="reponame")String reponame){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -56,6 +68,12 @@ public class UserController {
 	@RequestMapping(value="/{owner}/{reponame}/stargazers/names")
 	public List<String> getRepoStarNames(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value="owner") String owner, @PathVariable(value="reponame")String reponame){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
@@ -68,6 +86,12 @@ public class UserController {
 	@RequestMapping(value="/{owner}/{reponame}/subscribers/names")
 	public List<String> getRepoSubNames(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value="owner") String owner, @PathVariable(value="reponame")String reponame){
+		if(reponame.contains("+")){
+			reponame = reponame.replaceAll("\\+", ".");
+		}
+		if(owner.contains("+")){
+			owner = owner.replaceAll("\\+", ".");
+		}
 		String fullname = owner+"/"+reponame;
 		int page = 1; 
 		String pageString = request.getParameter("page");
