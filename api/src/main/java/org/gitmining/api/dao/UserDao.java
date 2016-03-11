@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.spy.memcached.MemcachedClient;
+
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,10 +14,21 @@ import org.springframework.stereotype.Component;
 public class UserDao {
 	@Autowired
 	MongoQuery mongoQuery;
+	@Autowired
+	MemcachedClient memcachedClient;
+	
 	public Document searchUser(String login){
-		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("login", login);
-		return mongoQuery.searchOne(MongoInfo.DB, MongoInfo.USER_COLLECTION, filter); 
+		Document user = (Document)memcachedClient.get("user-"+login);
+		if(user != null){
+			return user;
+		}else{
+			Map<String, Object> filter = new HashMap<String, Object>();
+			filter.put("login", login);
+			user =  mongoQuery.searchOne(MongoInfo.DB, MongoInfo.USER_COLLECTION, filter); 
+			memcachedClient.add("user-"+login, 60*60*6, user);
+		}
+		return user;
+		
 	}
 	
 	public List<Document> searchStargazers(String reponame,int skip,int limit){

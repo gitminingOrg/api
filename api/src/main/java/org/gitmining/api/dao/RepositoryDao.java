@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.spy.memcached.MemcachedClient;
+
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 public class RepositoryDao {
 	@Autowired
 	MongoQuery mongoQuery;
+	@Autowired
+	MemcachedClient memcachedClient;
 
 	public List<Document> getAllRepos() {
 		return mongoQuery.search(MongoInfo.DB, MongoInfo.REPO_COLLECTION, null);
@@ -22,10 +26,17 @@ public class RepositoryDao {
 	}
 	
 	public Document getRepo(String reponame) {
-		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("full_name", reponame);
-		return mongoQuery.searchOne(MongoInfo.DB, MongoInfo.REPO_COLLECTION,
-				filter);
+		Document repo = (Document)memcachedClient.get("repo-"+reponame);
+		if(repo != null){
+			return repo;
+		}else{
+			Map<String, Object> filter = new HashMap<String, Object>();
+			filter.put("full_name", reponame);
+			repo =  mongoQuery.searchOne(MongoInfo.DB, MongoInfo.REPO_COLLECTION,
+					filter);
+			memcachedClient.add("repo-"+reponame, 60*60*24, repo);
+		}
+		return repo;
 	}
 	
 	public List<Document> getRepoBranches(String reponame) {
@@ -72,10 +83,7 @@ public class RepositoryDao {
 	}
 
 	public String getRepoItem(String reponame, String item) {
-		Map<String, Object> filter = new HashMap<String, Object>();
-		filter.put("full_name", reponame);
-		Document document = mongoQuery.searchOne(MongoInfo.DB,
-				MongoInfo.REPO_COLLECTION, filter);
+		Document document = getRepo(reponame);
 		String result = "NOT EXIST";
 		if(item.contains(".")){
 			String[] items = item.split("\\.");
