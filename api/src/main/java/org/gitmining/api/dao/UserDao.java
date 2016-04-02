@@ -28,7 +28,11 @@ public class UserDao {
 			memcachedClient.add("user-"+login, 60*60*6, user);
 		}
 		return user;
-		
+	}
+	
+	public List<Document> getUsers(int skip,int limit){
+		List<Document> users = mongoQuery.searchLimit(MongoInfo.DB, MongoInfo.USER_COLLECTION, null,skip, limit);
+		return users;
 	}
 	
 	public List<Document> searchStargazers(String reponame,int skip,int limit){

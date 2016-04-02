@@ -11,8 +11,17 @@
 	<mvc:annotation-driven />
 	<context:annotation-config />
 	<context:component-scan base-package="org.gitmining.api.controller"></context:component-scan>
-	<context:component-scan base-package="org.gitmining.api.service"></context:component-scan>
-	<context:component-scan base-package="org.gitmining.api.dao"></context:component-scan>
+
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json"/>
+				<entry key="xml" value="text/xml"/>
+				<entry key="htm" value="text/html" />
+			</map>
+		</property>
+		<property name="defaultContentType" value="application/json"></property>
+	</bean>
 <!-- HandlerMapping -->
 	<bean
 		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />

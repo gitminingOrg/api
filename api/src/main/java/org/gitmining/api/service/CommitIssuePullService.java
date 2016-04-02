@@ -37,9 +37,11 @@ public class CommitIssuePullService {
 	
 	public String getRepoCommitItem(String reponame, String sha, String item){
 		if(item.equals("committer")){
-			item = "committer.name";
+			item = "commit.committer.name";
 		}else if(item.equals("committer_email")){
-			item = "committer.email";
+			item = "commit.committer.email";
+		}else if(item.equals("date")){
+			item = "commit.committer.date";
 		}
 		else if(item.equals("filenumber")){
 			item = "stats.filenumber";
@@ -55,9 +57,16 @@ public class CommitIssuePullService {
 		String result = "NOT EXIST";
 		if(item.contains(".")){
 			String[] items = item.split("\\.");
-			if(document.containsKey(items[0])){
-				result = document.get(items[0], Document.class).get(items[1]).toString();
+			if(items.length == 2){
+				if(document.containsKey(items[0])){
+					result = document.get(items[0], Document.class).get(items[1]).toString();
+				}
+			}else if(items.length == 3){
+				if(document.containsKey(items[0])){
+					result = document.get(items[0], Document.class).get(items[1],Document.class).get(items[2]).toString();
+				}
 			}
+			
 		}else if (document.containsKey(item)){
 			result = document.get(item).toString();
 		}

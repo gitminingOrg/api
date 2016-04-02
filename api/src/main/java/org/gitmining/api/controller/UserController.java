@@ -17,6 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	@Autowired
 	UserInfoService userInfoService;
+	
+	@RequestMapping({"/names"})
+	public List<String> getAllUserNames(HttpServletRequest request,
+			HttpServletResponse response){
+		int page = 1; 
+		String pageString = request.getParameter("page");
+		if(pageString != null){
+			page = Integer.parseInt(pageString);
+		}
+		return userInfoService.getUserNames(page);
+	}
+	
 	@RequestMapping(value="/{user}")
 	public Document getUserInfo(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable(value="user") String login){

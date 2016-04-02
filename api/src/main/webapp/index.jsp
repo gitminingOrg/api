@@ -8,6 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <body>
 <h2>This is the gitmining api site welcome page.</h2>
+
+<h3>新增接口</h3>
+<p>/api/user/names(?page=...)</p>
+<p>返回某一页的用户名字</p>
+
 <h3>Repository Related Api</h3>
 <p>1. /api/repository(?page=...)</p>
 <p>json格式项目详情列表，一页50个，不加?page=则默认显示第一页内容</p>

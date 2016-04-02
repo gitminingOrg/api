@@ -13,6 +13,9 @@
       	http://www.springframework.org/schema/context/spring-context.xsd">
       	
     <context:property-placeholder location="classpath:config.properties"/>
+    <context:annotation-config />
+    <context:component-scan base-package="org.gitmining.api.service"></context:component-scan>
+	<context:component-scan base-package="org.gitmining.api.dao"></context:component-scan>
 	<bean id="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean">
 		<property name="servers" value="${memcached.server.ip}:${memcached.server.port}" />
 		<property name="protocol" value="BINARY" />

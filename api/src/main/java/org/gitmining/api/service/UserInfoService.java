@@ -3,6 +3,8 @@ package org.gitmining.api.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.spy.memcached.MemcachedClient;
+
 import org.bson.Document;
 import org.gitmining.api.dao.PageInfo;
 import org.gitmining.api.dao.UserDao;
@@ -13,6 +15,25 @@ import org.springframework.stereotype.Service;
 public class UserInfoService {
 	@Autowired
 	UserDao userDao;
+	@Autowired
+	MemcachedClient memcachedClient;
+	
+	public List<String> getUserNames(int page){
+		List<String> names = (List<String>)memcachedClient.get("usernames"+page);
+		int skip = (page - 1) * PageInfo.PAGE_COUNT;
+		int limit = PageInfo.PAGE_COUNT;
+		if(names != null){
+			return names;
+		}else{
+			names = new ArrayList<String>();
+			List<Document> users = userDao.getUsers(skip,limit);
+			for (Document document : users) {
+				names.add(document.getString("login"));
+			}
+			memcachedClient.add("usernames"+page, 60*60*24, names);
+		}
+		return names;
+	}
 	
 	public Document getUserInfo(String login){
 		return userDao.searchUser(login);
